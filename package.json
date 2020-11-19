@@ -13,8 +13,8 @@
     "eslint": "eslint . --ext .ts,.js,.jsx,.tsx",
     "prettier-check": "prettier . --check",
     "lint": "yarn prettier-check && yarn eslint",
-    "build": "yarn workspace gatsby-source-wordpress-experimental run build",
-    "watch": "yarn workspace gatsby-source-wordpress-experimental run watch",
+    "build": "yarn workspace @pixel-point/gatsby-source-wordpress-experimental run build",
+    "watch": "yarn workspace @pixel-point/gatsby-source-wordpress-experimental run watch",
     "clean-test-runtime": "cd test-site && gatsby clean",
     "develop-test-runtime": "cd test-site && yarn develop",
     "develop-preview": "cd test-site && ENABLE_GATSBY_REFRESH_ENDPOINT=true yarn develop",
@@ -31,7 +31,7 @@
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
-    "npm-publish": "yarn run lint && yarn test && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && npm publish"
+    "npm-publish": "(rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && npm publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",

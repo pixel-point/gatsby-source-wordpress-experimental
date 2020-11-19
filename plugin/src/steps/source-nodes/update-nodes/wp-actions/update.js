@@ -141,7 +141,25 @@ export const fetchAndCreateSingleNode = async ({
       errorContext: `Error occured while updating a single "${singleName}" node.`,
       ...args,
     })
-
+    // GUTENBERG HACK BEGIN
+    let savedNodeQuery = {}
+    let savedData
+    if (isPreview) {
+      const { nodeQuery } = getQueryInfoBySingleFieldName(singleName) || {}
+      savedNodeQuery = nodeQuery
+      const { data: savedDataUpdated } = await fetchGraphql({
+        headers,
+        query: savedNodeQuery,
+        variables: {
+          id,
+        },
+        errorContext: `Error occured while updating a single "${singleName}" node.`,
+        ...args,
+      })
+      savedData = savedDataUpdated
+      data[singleName].acf = savedData[singleName].acf
+    }
+    // GUTENBERG HACK END
     return data
   }
 
@@ -170,7 +188,6 @@ export const fetchAndCreateSingleNode = async ({
   }
 
   const remoteNode = data[singleName]
-
   if (remoteNode?.title === `Auto Draft` && isNewPostDraft) {
     // for UX reasons we don't want to display Auto Draft as a title
     // in the preview window for new draft posts
